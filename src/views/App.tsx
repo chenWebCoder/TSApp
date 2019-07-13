@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Button } from 'antd';
 // import logo from '../statics/logo.svg';
 import * as styles from './style.scss';
-// import 'antd/lib/button/style/index.less';
 
 const App: React.FC = () => {
   return (
