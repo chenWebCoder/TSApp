@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from '../statics/logo.svg';
-import './style.scss';
+// import logo from '../statics/logo.svg';
+import * as styles from './style.scss';
 
 const App: React.FC = () => {
   return (
-    <div className='app'>React</div>
+    <div className={styles.content}>React</div>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
