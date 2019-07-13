@@ -28,9 +28,12 @@ const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 
 const postcssNormalize = require("postcss-normalize");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const tsImportPluginFactory = require("ts-import-plugin");
+// const theme = require('../src/theme');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
+// const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
+const shouldUseSourceMap = process.env.NODE_ENV === "production" ? false : true;
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== "false";
@@ -202,7 +205,14 @@ module.exports = function(webpackEnv) {
               // https://github.com/facebook/create-react-app/issues/5250
               // Pending futher investigation:
               // https://github.com/terser-js/terser/issues/120
-              inline: 2
+              inline: 2,
+              // 删除所有的 `console` `debuggger`语句, 还可以兼容ie浏览器
+              drop_debugger: true,
+              drop_console: true,
+              // 内嵌定义了但是只用到一次的变量
+              collapse_vars: true,
+              // 提取出出现多次但是没有定义成变量去引用的静态值
+              reduce_vars: true
             },
             mangle: {
               safari10: true
@@ -312,7 +322,17 @@ module.exports = function(webpackEnv) {
             {
               options: {
                 formatter: require.resolve("react-dev-utils/eslintFormatter"),
-                eslintPath: require.resolve("eslint")
+                eslintPath: require.resolve("eslint"),
+                // Antd 按需加载
+                getCustomTransformers: () => ({
+                  before: [
+                    tsImportPluginFactory({
+                      libraryName: "antd",
+                      libraryDirectory: "lib",
+                      style: true
+                    })
+                  ]
+                })
               },
               loader: require.resolve("eslint-loader")
             }
@@ -391,6 +411,22 @@ module.exports = function(webpackEnv) {
                 // being evaluated would be much more helpful.
                 sourceMaps: false
               }
+            },
+            // 处理 less 格式文件
+            {
+              test: /\.less$/,
+              use: [
+                "style-loader",
+                "css-loader",
+                {
+                  loader: "less-loader",
+                  options: {
+                    // 禁用内联 JS 代码，这个功能用于禁用在样式表里边写 JS 代码
+                    javascriptEnabled: true
+                    // sourceMap: true,
+                  }
+                }
+              ]
             },
             // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
