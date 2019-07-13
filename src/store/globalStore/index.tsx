@@ -5,7 +5,7 @@ interface IGlobalStore {
     setNum(name: string): void;
 }
 
-class GlobalStore {
+class GlobalStore implements IGlobalStore {
     @observable num: number = 10;
 
     @action public setNum = (type: string): void => {
