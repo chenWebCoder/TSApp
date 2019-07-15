@@ -1,0 +1,10 @@
+{
+    "charset": "utf-8",
+    "end_of_line": "lf",
+    "tabWidth": 4,
+    "indent_size": 4,
+    "indent_style": "space",
+    "singleQuote": true,
+    "semi": true,
+    "printWidth": 120
+}

@@ -416,7 +416,8 @@ module.exports = function(webpackEnv) {
             {
               test: /\.less$/,
               use: [
-                "style-loader",
+                // "style-loader",
+                isEnvProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                 "css-loader",
                 {
                   loader: "less-loader",
@@ -473,7 +474,8 @@ module.exports = function(webpackEnv) {
               //   'sass-loader'
               // ),
               use: [
-                "style-loader",
+                // "style-loader",
+                isEnvProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                 {
                   // 如果项目中不使用typescript这里可以直改成css-loader
                   loader: "typings-for-css-modules-loader",

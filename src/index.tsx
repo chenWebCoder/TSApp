@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import * as serviceWorker from './serviceWorker';
+
+import { Routers } from './routers';
 import { GlobalStore } from './store/globalStore';
 import './index.scss';
 
-import { Routers } from './routers';
-
 // mobx 中的数据只能在 mobx 的 action 中进行修改
-configure({ enforceActions: 'observed' });
+configure({ enforceActions: 'observed' })
 
 ReactDOM.render(
     <Provider

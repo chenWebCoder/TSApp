@@ -1,10 +1,10 @@
 // @import 'mixin.scss';
 
 .app {
-    text-align: center; 
+    text-align: center;
     .test {
         font-size: 12px;
-    }  
+    }
 }
 
 .appHeader {
@@ -37,7 +37,6 @@
 
 .appLink {
     color: #61dafb;
-
     // @include redColor;
 }
 

@@ -3,7 +3,7 @@ import logo from '../../statics/logo.svg';
 import { Counter } from '../Counter';
 import * as Style from './style.scss';
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
     return (
         <div className="app">
             <header className={Style.appHeader}>
@@ -18,13 +18,12 @@ const App: React.FC = () => {
                     rel="noopener noreferrer"
                 >
                     Learn More React
-
                 </a>
                 <Counter />
 
             </header>
         </div>
     );
-}
+};
 
-export default App;
+export { Home };
